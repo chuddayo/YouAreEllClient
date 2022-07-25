@@ -1,33 +1,43 @@
-import spiffyUrlManipulator
+package controllers;
 
-public class ServerController() {
-    private String rootURL = "http://zipcode.rocks:8085";
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
+import kong.unirest.Unirest;
+import models.Id;
 
-    private ServerController svr = new ServerController();
+public class ServerController {
+    private final String rootURL = "http://zipcode.rocks:8085";
+
+    private static ServerController svr = new ServerController();
 
     private ServerController() {}
 
-    public static shared() {
+    public static ServerController getServerInstance() {
         return svr;
     }
 
-    public JsonString idGet() {
+    public String idGet() {
         // url -> /ids/
         // send the server a get with url
         // return json from server
+
+        // TODO change URL to the /ids
+        return Unirest.get(rootURL).asJson().getBody().toString();
     }
-    public JsonString idPost(Id) {
-        // url -> /ids/
-        // create json from Id
-        // request
-        // reply
-        // return json
-    }
-    public JsonString idPut(Id) {
-        // url -> /ids/
-    }
+
+    // TODO uncomment
+//    public JsonString idPost(Id id) {
+//        // url -> /ids/
+//        // create json from Id
+//        // request
+//        // reply
+//        // return json
+//    }
+//    public JsonString idPut(Id id) {
+//        // url -> /ids/
+//    }
 
 
 }
 
-// ServerController.shared.doGet()
+// ServerController.getServerInstance.doGet()

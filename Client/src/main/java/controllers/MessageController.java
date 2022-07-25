@@ -10,9 +10,10 @@ public class MessageController {
 
     private HashSet<Message> messagesSeen;
     // why a HashSet??
-
+    // TODO fill out all stubs
     public ArrayList<Message> getMessages() {
-        return null;
+        if (messagesSeen == null) return null;
+        return new ArrayList<Message>(messagesSeen);
     }
     public ArrayList<Message> getMessagesForId(Id Id) {
         return null;
@@ -23,9 +24,7 @@ public class MessageController {
     public ArrayList<Message> getMessagesFromFriend(Id myId, Id friendId) {
         return null;
     }
-
     public Message postMessage(Id myId, Id toId, Message msg) {
         return null;
     }
- 
 }

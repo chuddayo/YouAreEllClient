@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import controllers.IdController;
 import controllers.MessageController;
 import youareell.YouAreEll;
@@ -30,7 +31,7 @@ public class SimpleShell {
         ProcessBuilder pb = new ProcessBuilder();
         List<String> history = new ArrayList<String>();
         int index = 0;
-        //we break out with <ctrl c>
+        // we break out with <ctrl c>
         while (true) {
             //read what the user enters
             System.out.println("cmd? ");
@@ -40,7 +41,7 @@ public class SimpleShell {
             String[] commands = commandLine.split(" ");
             List<String> list = new ArrayList<String>();
 
-            //if the user entered a return, just loop again
+            // if the user entered a return, just loop again
             if (commandLine.equals(""))
                 continue;
             if (commandLine.equals("exit")) {
@@ -48,14 +49,15 @@ public class SimpleShell {
                 break;
             }
 
-            //loop through to see if parsing worked
+            // loop through to see if parsing worked
             for (int i = 0; i < commands.length; i++) {
-                //System.out.println(commands[i]); //***check to see if parsing/split worked***
+                //System.out.println(commands[i]); // ***check to see if parsing/split worked***
                 list.add(commands[i]);
 
             }
             System.out.print(list); //***check to see if list was added correctly***
             history.addAll(list);
+
             try {
                 //display history of shell with index
                 if (list.get(list.size() - 1).equals("history")) {
@@ -68,30 +70,31 @@ public class SimpleShell {
 
                 // ids
                 if (list.contains("ids")) {
-                    String results = webber.get_ids();
+                    String results = urll.get_ids();
                     SimpleShell.prettyPrint(results);
                     continue;
                 }
 
                 // messages
                 if (list.contains("messages")) {
-                    String results = webber.get_messages();
+                    String results = urll.get_messages();
                     SimpleShell.prettyPrint(results);
                     continue;
                 }
                 // you need to add a bunch more.
 
-                //!! command returns the last command in history
+                // !! command returns the last command in history
                 if (list.get(list.size() - 1).equals("!!")) {
                     pb.command(history.get(history.size() - 2));
 
-                }//!<integer value i> command
+                }// !<integer value i> command
                 else if (list.get(list.size() - 1).charAt(0) == '!') {
                     int b = Character.getNumericValue(list.get(list.size() - 1).charAt(1));
                     if (b <= history.size())//check if integer entered isn't bigger than history size
                         pb.command(history.get(b));
                 } else {
                     pb.command(list);
+                    throw new IOException("IO Exception?");
                 }
 
                 // // wait, wait, what curiousness is this?

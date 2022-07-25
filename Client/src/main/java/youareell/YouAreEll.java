@@ -4,10 +4,13 @@ import controllers.*;
 
 public class YouAreEll {
 
-    TransactionController tt;
+    TransactionController transactionController;
 
-    public YouAreEll (TransactionController t) {
-        this.tt = t;
+    public YouAreEll (TransactionController transactionController) {
+        this.transactionController = transactionController;
+    }
+    public YouAreEll (MessageController messageController, IdController idController) {
+        transactionController = new TransactionController(messageController, idController);
     }
 
     public static void main(String[] args) {
@@ -21,12 +24,15 @@ public class YouAreEll {
     }
 
     public String get_ids() {
-        return tt.makecall("/ids", "GET", "");
+        return transactionController.makeCall("/ids", "GET", "");
     }
 
     public String get_messages() {
         return MakeURLCall("/messages", "GET", "");
     }
 
-
+    // MakeURLCall
+    public String MakeURLCall(String extension, String type, String msg) {
+        return transactionController.makeCall(extension, type, msg);
+    }
 }
