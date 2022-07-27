@@ -9,9 +9,9 @@ public class IdController {
 
     Id myId;
 
-    public ArrayList<Id> getIds() {
+    public List<Id> getIds() {
         if (allIds == null) return null;
-        ArrayList<Id> idList = new ArrayList<Id>();
+        List<Id> idList = new ArrayList<Id>();
         Set<String> stringList = allIds.keySet();
         for (String stringKey : stringList) {
             idList.add(allIds.get(stringKey));
