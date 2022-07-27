@@ -21,8 +21,8 @@ public class YouAreEll {
             new TransactionController(
                 new MessageController(), new IdController()
         ));
-        //System.out.println(ServerController.getServerInstance().getURL("ids"));
-        System.out.println(ServerController.getServerInstance().getURL("messages"));
+        System.out.println(ServerController.getServerInstance().getURL("ids"));
+        //System.out.println(ServerController.getServerInstance().getURL("messages"));
     }
 
     public String get_ids() {

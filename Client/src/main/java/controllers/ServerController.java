@@ -23,7 +23,7 @@ public class ServerController {
     public String getURL(String urlExtension) throws MalformedURLException {
         URL url = new URL(rootURL + "/" + urlExtension);
         HttpResponse<JsonNode> jsonResponse = Unirest.get(url.toString()).asJson();
-        return jsonResponse.getBody().toPrettyString();
+        return jsonResponse.getBody().toString();
     }
 
     // TODO uncomment
