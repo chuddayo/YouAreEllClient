@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import javax.annotation.Generated;
-
 /*
  * POJO for an Id object
  *
@@ -28,10 +26,10 @@ public class Id {
     private String name = "";
     @JsonProperty("github")
     private String github = "";
-    public Id (String name, String githubId) {
-        this.name = name;
-        this.github = githubId;
-    }
+//    public Id (String name, String githubId) {
+//        this.name = name;
+//        this.github = githubId;
+//    }
     @JsonProperty("userid")
     public String getUserid() {
         return userid;

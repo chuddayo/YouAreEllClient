@@ -15,23 +15,24 @@ public class TransactionController {
     }
 
     public List<Id> getIds() {
-        return idCtrl.getIds();
+        return null;
+//        return idCtrl.getIds();
     }
 
     public String makeCall(String extension, String type, String msg) {
         if (extension.equals("/messages")) {
-            msgCtrl.getMessages();
-            // TODO parse into string?
+//            msgCtrl.getMessages();
+//            // TODO parse into string?
         } else if (extension.equals("/ids")) {
-            idCtrl.getIds();
-            // TODO parse into string?
+//            idCtrl.getIds();
+//            // TODO parse into string?
         }
         return null;
     }
 
     public String postId(String idToRegister, String githubName) {
-        Id tid = new Id(idToRegister, githubName);
-        tid = idCtrl.postId(tid);
+//        Id tid = new Id(idToRegister, githubName);
+//        tid = idCtrl.postId(tid);
         return ("Id registered.");
     }
 }
