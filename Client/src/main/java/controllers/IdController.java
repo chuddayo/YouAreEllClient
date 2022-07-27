@@ -11,7 +11,7 @@ public class IdController {
     //private HashMap<String, Id> allIds;
     private List<Id> idList;
 
-    public List<Id> getIds() throws MalformedURLException {
+    public List<Id> getIds() {
         if (idList == null) {
             String getResultJSON = null;
             try {
@@ -21,11 +21,6 @@ public class IdController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-//            List<Id> idList = new ArrayList<Id>();
-//            Set<String> stringList = allIds.keySet();
-//            for (String stringKey : stringList) {
-//                idList.add(allIds.get(stringKey));
-//            }
         }
         return idList;
     }

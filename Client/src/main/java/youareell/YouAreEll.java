@@ -24,13 +24,13 @@ public class YouAreEll {
                 new MessageController(), new IdController()
         ));
 
-        //System.out.println(ServerController.getServerInstance().getURL("ids"));
-        List<Id> idList = new IdController().getIds();
-        for (Id id : idList) {
-            System.out.println(id);
-        }
+//        System.out.println(ServerController.getServerInstance().getURL("ids"));
+//        List<Id> idList = new IdController().getIds();
+//        for (Id id : idList) {
+//            System.out.println(id);
+//        }
 
-        //System.out.println(ServerController.getServerInstance().getURL("messages"));
+        System.out.println(ServerController.getServerInstance().getURL("messages"));
     }
 
     public String get_ids() {
