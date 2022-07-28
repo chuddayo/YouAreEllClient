@@ -5,7 +5,6 @@ import models.Id;
 import java.util.List;
 
 public class TransactionController {
-    private final String rootURL = "http://zipcode.rocks:8085";
     private MessageController msgCtrl;
     private IdController idCtrl;
 
@@ -19,13 +18,12 @@ public class TransactionController {
 //        return idCtrl.getIds();
     }
 
+    // TODO what are all the call types?
+    // TODO should TransactionController have a map for cached lists?
     public String makeCall(String extension, String type, String msg) {
         if (extension.equals("/messages")) {
-//            msgCtrl.getMessages();
 //            // TODO parse into string?
         } else if (extension.equals("/ids")) {
-//            idCtrl.getIds();
-//            // TODO parse into string?
         }
         return null;
     }
@@ -34,5 +32,21 @@ public class TransactionController {
 //        Id tid = new Id(idToRegister, githubName);
 //        tid = idCtrl.postId(tid);
         return ("Id registered.");
+    }
+
+    public MessageController getMsgCtrl() {
+        return msgCtrl;
+    }
+
+    public void setMsgCtrl(MessageController msgCtrl) {
+        this.msgCtrl = msgCtrl;
+    }
+
+    public IdController getIdCtrl() {
+        return idCtrl;
+    }
+
+    public void setIdCtrl(IdController idCtrl) {
+        this.idCtrl = idCtrl;
     }
 }

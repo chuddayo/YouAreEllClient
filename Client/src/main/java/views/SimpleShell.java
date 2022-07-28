@@ -2,19 +2,15 @@ package views;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import controllers.IdController;
 import controllers.MessageController;
 import youareell.YouAreEll;
 
-// Simple Shell is a Console view for youareell.YouAreEll.
+// Simple Shell is a Console view for youareell. YouAreEll.
 public class SimpleShell {
-
 
     public static void prettyPrint(String output) {
         // yep, make an effort to format things nicely, eh?
@@ -33,11 +29,11 @@ public class SimpleShell {
         int index = 0;
         // we break out with <ctrl c>
         while (true) {
-            //read what the user enters
+            // read what the user enters
             System.out.println("cmd? ");
             commandLine = console.readLine();
 
-            //input parsed into array of strings(command and arguments)
+            // input parsed into array of strings(command and arguments)
             String[] commands = commandLine.split(" ");
             List<String> list = new ArrayList<String>();
 
@@ -111,7 +107,6 @@ public class SimpleShell {
                 //     System.out.println(line);
                 // br.close();
 
-
             }
 
             //catch ioexception, output appropriate message, resume waiting for input
@@ -119,7 +114,7 @@ public class SimpleShell {
                 System.out.println("Input Error, Please try again!");
             }
             // So what, do you suppose, is the meaning of this comment?
-            /** The steps are:
+            /* The steps are:
              * 1. parse the input to obtain the command and any parameters
              * 2. create a ProcessBuilder object
              * 3. start the process
@@ -128,7 +123,6 @@ public class SimpleShell {
              */
 
         }
-
 
     }
 
