@@ -30,6 +30,9 @@ public class Id {
 //        this.name = name;
 //        this.github = githubId;
 //    }
+//    public Id () {
+//
+//    }
     @JsonProperty("userid")
     public String getUserid() {
         return userid;

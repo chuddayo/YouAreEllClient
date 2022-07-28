@@ -29,7 +29,7 @@ public class YouAreEll {
         IdController idController = new IdController();
         Id ryanID = new Id();
         ryanID.setUserid("897afaf4654043a51f8df0ecdf9b9307ccd91fef");
-        ryanID.setName("freddy");
+        ryanID.setName("nick choi");
         ryanID.setGithub("chuddayo");
         System.out.println(idController.putId(ryanID));
 
