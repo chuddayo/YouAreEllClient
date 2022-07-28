@@ -4,22 +4,28 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import controllers.IdController;
 import controllers.MessageController;
-import youareell.YouAreEll;
+import controllers.TransactionController;
 
-// Simple Shell is a Console view for youareell. YouAreEll.
 public class SimpleShell {
 
-    public static void prettyPrint(String output) {
-        // yep, make an effort to format things nicely, eh?
-        System.out.println(output);
+    public static <E> void prettyPrint(E output) {
+        Console.println(output.toString());
     }
-    public static void main(String[] args) throws java.io.IOException {
 
-        YouAreEll urll = new YouAreEll(new MessageController(), new IdController());
-        
+    public static <E> void prettyListPrint(List<E> objectList) {
+        for (E element : objectList) {
+            Console.println(element.toString());
+        }
+    }
+
+    public static void main(String[] args) throws java.io.IOException {
+        TransactionController transactionCtrl =
+                new TransactionController(new MessageController(), new IdController());
+
         String commandLine;
         BufferedReader console = new BufferedReader
                 (new InputStreamReader(System.in));
@@ -27,31 +33,27 @@ public class SimpleShell {
         ProcessBuilder pb = new ProcessBuilder();
         List<String> history = new ArrayList<String>();
         int index = 0;
-        // we break out with <ctrl c>
+
         while (true) {
             // read what the user enters
-            System.out.println("cmd? ");
+            System.out.println("\ncmd? ");
             commandLine = console.readLine();
 
-            // input parsed into array of strings(command and arguments)
+            // input is parsed into an array of strings (command and arguments)
             String[] commands = commandLine.split(" ");
-            List<String> list = new ArrayList<String>();
 
             // if the user entered a return, just loop again
             if (commandLine.equals(""))
                 continue;
+            // if the user types exit, the loop breaks
             if (commandLine.equals("exit")) {
                 System.out.println("bye!");
                 break;
             }
 
-            // loop through to see if parsing worked
-            for (int i = 0; i < commands.length; i++) {
-                //System.out.println(commands[i]); // ***check to see if parsing/split worked***
-                list.add(commands[i]);
-
-            }
-            System.out.print(list); //***check to see if list was added correctly***
+            List<String> list = new ArrayList<String>();
+            Collections.addAll(list, commands);
+            //System.out.print(list); //***check to see if list was added correctly***
             history.addAll(list);
 
             try {
@@ -62,22 +64,35 @@ public class SimpleShell {
                     continue;
                 }
 
-                // Specific Commands.
+                /*
+                    Specific Commands
+                */
 
                 // ids
                 if (list.contains("ids")) {
-                    String results = urll.get_ids();
-                    SimpleShell.prettyPrint(results);
+                    if (list.size() == 1) {
+                        // call GET /ids and print results
+                        prettyListPrint(transactionCtrl.getIdCtrl().getIdsAsList());
+                    } else if (list.size() == 3 && list.get(0).equals("ids")) {
+                        // POST or PUT the name and ID
+                    } else {
+                        Console.println("type 'ids' for a list of all ids\n" +
+                                "type 'ids your_name your_github_id' to add or change" +
+                                "your ID");
+                    }
                     continue;
                 }
 
                 // messages
                 if (list.contains("messages")) {
-                    String results = urll.get_messages();
-                    SimpleShell.prettyPrint(results);
+//                    String results = urll.get_messages();
+//                    SimpleShell.prettyPrint(results);
                     continue;
                 }
                 // you need to add a bunch more.
+
+
+
 
                 // !! command returns the last command in history
                 if (list.get(list.size() - 1).equals("!!")) {

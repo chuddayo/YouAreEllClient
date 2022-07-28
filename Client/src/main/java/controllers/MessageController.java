@@ -17,6 +17,9 @@ public class MessageController {
     private List<Message> messagesFromFriend;
     private List<Message> messagesToId;
 
+    /*
+        GET last 20 messages as List<Message>
+     */
     public List<Message> getMessages() {
         if (messageList == null) {
             String getResultJSON;
@@ -30,6 +33,10 @@ public class MessageController {
         }
         return messageList;
     }
+
+    /*
+        GET last 20 messages addressed to id as List<Message>
+     */
     public List<Message> getMessagesForId(String id) {
         if (messagesFromFriend == null) {
             String getResultJSON;
@@ -44,6 +51,7 @@ public class MessageController {
         }
         return messagesFromFriend;
     }
+
     public Message getMessageSequence(String githubId, String sequence) {
         Message message;
         String getResultJSON;
@@ -57,6 +65,7 @@ public class MessageController {
         }
         return null;
     }
+
     public List<Message> getMessagesFromFriend(String myId, String friendId) {
         if (messagesFromFriend == null) {
             String getResultJSON;
@@ -81,6 +90,9 @@ public class MessageController {
         return mapper.readValue(responseJsonString, Message.class);
     }
 
+    /*
+        Getters and Setters
+    */
     public List<Message> getMessageList() {
         return messageList;
     }

@@ -2,11 +2,8 @@ package youareell;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import controllers.*;
-import models.Id;
-import models.Message;
 
 import java.net.MalformedURLException;
-import java.util.List;
 
 public class YouAreEll {
 
@@ -20,25 +17,25 @@ public class YouAreEll {
     }
 
     public static void main(String[] args) throws MalformedURLException, JsonProcessingException {
-        // hmm: is this Dependency Injection?
         YouAreEll urlhandler = new YouAreEll(
             new TransactionController(
                 new MessageController(), new IdController()
         ));
 
-        Message msg = new Message();
-        msg.setFromId("chuddayo");
-        msg.setToId("");
-        msg.setMessage("hello zip coders!");
-        MessageController messageController = new MessageController();
-        System.out.println(messageController.postMessage(msg));
+        // TODO write tests for examples below
+//        Message msg = new Message();
+//        msg.setFromId("chuddayo");
+//        msg.setToId("");
+//        msg.setMessage("hello zip coders!");
+//        MessageController messageController = new MessageController();
+//        System.out.println(messageController.postMessage(msg));
 
 //        IdController idController = new IdController();
 //        Id ryanID = new Id();
-//        ryanID.setUserid("897afaf4654043a51f8df0ecdf9b9307ccd91fef");
-//        ryanID.setName("nick choi");
-//        ryanID.setGithub("chuddayo");
-//        System.out.println(idController.putId(ryanID));
+//        //ryanID.setUserid("897afaf4654043a51f8df0ecdf9b9307ccd91fef");
+//        ryanID.setName("Mike");
+//        ryanID.setGithub("mike-348");
+//        System.out.println(idController.postId(ryanID));
 
 //        System.out.println(ServerController.getServerInstance().getURL("ids"));
 //        List<Id> idList = new IdController().getIds();
@@ -53,16 +50,8 @@ public class YouAreEll {
 //        }
     }
 
-    public String get_ids() {
-        return transactionController.makeCall("/ids", "GET", "");
-    }
-
-    public String get_messages() {
-        return MakeURLCall("/messages", "GET", "");
-    }
-
-    // MakeURLCall
-    public String MakeURLCall(String extension, String type, String msg) {
-        return transactionController.makeCall(extension, type, msg);
-    }
+//    // MakeURLCall
+//    public String MakeURLCall(String urlExtension, String requestType, String payload) {
+//        return transactionController.makeRequest(urlExtension, requestType, payload);
+//    }
 }
