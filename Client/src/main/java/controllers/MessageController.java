@@ -75,7 +75,9 @@ public class MessageController {
     public Message postMessage(Message message) throws JsonProcessingException, MalformedURLException {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = mapper.writeValueAsString(message);
-        String responseJsonString = ServerController.getServerInstance().postURL("messages", jsonString);
+        String responseJsonString = ServerController.getServerInstance()
+                .postURL("ids/" + message.getFromId() + "/messages", jsonString);
+        System.out.println(responseJsonString);
         return mapper.readValue(responseJsonString, Message.class);
     }
 

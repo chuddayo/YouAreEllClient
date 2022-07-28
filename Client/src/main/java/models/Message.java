@@ -1,8 +1,9 @@
 package models;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  * POJO for an Message object
@@ -30,10 +31,12 @@ public class Message {
     private String toId = "";
     @JsonProperty("fromid")
     private String fromId = "";
-    @JsonProperty("timestamp")
+    @JsonIgnore
     private String timestamp = "";
     @JsonProperty("sequence")
     private String seqId = "";
+    @JsonIgnore
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @Override
     public String toString() {
@@ -63,11 +66,11 @@ public class Message {
     public void setFromId(String fromId) {
         this.fromId = fromId;
     }
-    @JsonProperty("timestamp")
+    @JsonIgnore
     public String getTimestamp() {
         return timestamp;
     }
-    @JsonProperty("timestamp")
+    @JsonIgnore
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
@@ -79,6 +82,14 @@ public class Message {
     public void setSeqId(String seqId) {
         this.seqId = seqId;
     }
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
 
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
 
 }

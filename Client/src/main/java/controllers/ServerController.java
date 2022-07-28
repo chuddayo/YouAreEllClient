@@ -30,7 +30,7 @@ public class ServerController {
     public String postURL(String urlExtension, String jsonBody) throws MalformedURLException {
         URL url = new URL(rootURL + "/" + urlExtension);
         HttpResponse<JsonNode> jsonResponse = Unirest.post(url.toString()).body(jsonBody).asJson();
-        //System.out.println(jsonResponse.getStatus());
+        System.out.println(jsonResponse.getBody().toPrettyString());
         return jsonResponse.getBody().toString();
     }
 

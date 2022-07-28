@@ -26,12 +26,19 @@ public class YouAreEll {
                 new MessageController(), new IdController()
         ));
 
-        IdController idController = new IdController();
-        Id ryanID = new Id();
-        ryanID.setUserid("897afaf4654043a51f8df0ecdf9b9307ccd91fef");
-        ryanID.setName("nick choi");
-        ryanID.setGithub("chuddayo");
-        System.out.println(idController.putId(ryanID));
+        Message msg = new Message();
+        msg.setFromId("chuddayo");
+        msg.setToId("");
+        msg.setMessage("hello zip coders!");
+        MessageController messageController = new MessageController();
+        System.out.println(messageController.postMessage(msg));
+
+//        IdController idController = new IdController();
+//        Id ryanID = new Id();
+//        ryanID.setUserid("897afaf4654043a51f8df0ecdf9b9307ccd91fef");
+//        ryanID.setName("nick choi");
+//        ryanID.setGithub("chuddayo");
+//        System.out.println(idController.putId(ryanID));
 
 //        System.out.println(ServerController.getServerInstance().getURL("ids"));
 //        List<Id> idList = new IdController().getIds();
