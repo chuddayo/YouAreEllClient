@@ -39,7 +39,7 @@ public class ServerController {
     public String putURL(String urlExtension, String jsonBody) throws MalformedURLException {
         URL url = new URL(rootURL + "/" + urlExtension);
         HttpResponse<JsonNode> jsonResponse = Unirest.put(url.toString()).body(jsonBody).asJson();
-        System.out.println(jsonResponse.getBody().toString());
+        //System.out.println(jsonResponse.getBody().toString());
         return jsonResponse.getBody().toString();
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import controllers.IdController;
 import controllers.MessageController;
 import controllers.TransactionController;
+import models.Id;
 
 public class SimpleShell {
 
@@ -57,6 +58,7 @@ public class SimpleShell {
             history.addAll(list);
 
             try {
+                // TODO test history?
                 //display history of shell with index
                 if (list.get(list.size() - 1).equals("history")) {
                     for (String s : history)
@@ -75,6 +77,23 @@ public class SimpleShell {
                         prettyListPrint(transactionCtrl.getIdCtrl().getIdsAsList());
                     } else if (list.size() == 3 && list.get(0).equals("ids")) {
                         // POST or PUT the name and ID
+                        Id newId = new Id(list.get(1), list.get(2));
+                        // if ID exists
+                        if (transactionCtrl.getIdCtrl().idExists(newId)) {
+                            String userId = transactionCtrl.getIdCtrl().getUserId(newId);
+                            // and username is different, PUT it
+                            if (!transactionCtrl.getIdCtrl().getIdByUserId(userId).getName()
+                                    .equals(newId.getName())) {
+                                newId.setUserid(userId);
+                                transactionCtrl.getIdCtrl().putId(newId);
+                                System.out.println("Username updated.");
+                            } else {
+                                System.out.println("Id and username already exist.");
+                            }
+                        } else { // else if ID doesn't exist, POST it
+                            transactionCtrl.getIdCtrl().postId(newId);
+                            System.out.println("ID posted successfully.");
+                        }
                     } else {
                         Console.println("type 'ids' for a list of all ids\n" +
                                 "type 'ids your_name your_github_id' to add or change" +

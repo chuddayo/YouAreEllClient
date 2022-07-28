@@ -26,13 +26,11 @@ public class Id {
     private String name = "";
     @JsonProperty("github")
     private String github = "";
-//    public Id (String name, String githubId) {
-//        this.name = name;
-//        this.github = githubId;
-//    }
-//    public Id () {
-//
-//    }
+    public Id (String name, String githubId) {
+        this.name = name;
+        this.github = githubId;
+    }
+    public Id () {}
     @JsonProperty("userid")
     public String getUserid() {
         return userid;

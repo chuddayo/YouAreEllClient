@@ -8,20 +8,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Id;
 
 public class IdController {
-    private List<Id> idList;
 
     public List<Id> getIdsAsList() {
-        if (idList == null) {
-            String getResultJSON = null;
-            try {
-                getResultJSON = ServerController.getServerInstance().getURL("ids");
-                ObjectMapper objectMapper = new ObjectMapper();
-                return Arrays.asList(objectMapper.readValue(getResultJSON, Id[].class));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        String getResultJSON = null;
+        try {
+            getResultJSON = ServerController.getServerInstance().getURL("ids");
+            ObjectMapper objectMapper = new ObjectMapper();
+            return Arrays.asList(objectMapper.readValue(getResultJSON, Id[].class));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return idList;
+        return null;
     }
 
     // create json from id
@@ -44,5 +41,29 @@ public class IdController {
         String responseJsonString = ServerController.getServerInstance().putURL("ids", jsonString);
         return mapper.readValue(responseJsonString, Id.class);
     }
- 
+
+    public boolean idExists(Id id) {
+        List<Id> idList = getIdsAsList();
+        for (Id individual : idList) {
+            if (individual.getGithub().equals(id.getGithub())) return true;
+        }
+        return false;
+    }
+
+    public String getUserId(Id id) {
+        List<Id> idList = getIdsAsList();
+        for (Id individual : idList) {
+            if (individual.getGithub().equals(id.getGithub())) return individual.getUserid();
+        }
+        return null;
+    }
+
+    public Id getIdByUserId(String userId) {
+        List<Id> idList = getIdsAsList();
+        for (Id individual : idList) {
+            if (individual.getUserid().equals(userId)) return individual;
+        }
+        return null;
+    }
+
 }

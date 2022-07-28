@@ -35,7 +35,7 @@ public class YouAreEll {
 //        //ryanID.setUserid("897afaf4654043a51f8df0ecdf9b9307ccd91fef");
 //        ryanID.setName("Mike");
 //        ryanID.setGithub("mike-348");
-//        System.out.println(idController.postId(ryanID));
+//        System.out.println(idController.putId(ryanID));
 
 //        System.out.println(ServerController.getServerInstance().getURL("ids"));
 //        List<Id> idList = new IdController().getIds();
