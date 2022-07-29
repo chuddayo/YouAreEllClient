@@ -1,5 +1,6 @@
 package views;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Console {
@@ -16,5 +17,15 @@ public class Console {
 
     public static void println(String output, Object... args) {
         print(output + "\n", args);
+    }
+
+    public static <E> void prettyPrint(E output) {
+        Console.println(output.toString());
+    }
+
+    public static <E> void prettyListPrint(List<E> objectList) {
+        for (E element : objectList) {
+            Console.println(element.toString());
+        }
     }
 }

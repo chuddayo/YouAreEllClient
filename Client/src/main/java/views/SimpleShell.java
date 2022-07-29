@@ -10,19 +10,9 @@ import controllers.IdController;
 import controllers.MessageController;
 import controllers.TransactionController;
 import models.Id;
+import models.Message;
 
 public class SimpleShell {
-
-    public static <E> void prettyPrint(E output) {
-        Console.println(output.toString());
-    }
-
-    public static <E> void prettyListPrint(List<E> objectList) {
-        for (E element : objectList) {
-            Console.println(element.toString());
-        }
-    }
-
     public static void main(String[] args) throws java.io.IOException {
         TransactionController transactionCtrl =
                 new TransactionController(new MessageController(), new IdController());
@@ -42,6 +32,7 @@ public class SimpleShell {
 
             // input is parsed into an array of strings (command and arguments)
             String[] commands = commandLine.split(" ");
+            commands[0] = commands[0].toLowerCase();
 
             // if the user entered a return, just loop again
             if (commandLine.equals(""))
@@ -67,15 +58,17 @@ public class SimpleShell {
                 }
 
                 /*
-                    Specific Commands
-                */
+                -------------------------
+                    SPECIFIC COMMANDS
+                -------------------------
 
-                // ids
-                if (list.contains("ids")) {
+                    IDS COMMAND
+                 */
+                if (list.get(0).equals("ids")) {
                     if (list.size() == 1) {
                         // call GET /ids and print results
-                        prettyListPrint(transactionCtrl.getIdCtrl().getIdsAsList());
-                    } else if (list.size() == 3 && list.get(0).equals("ids")) {
+                        Console.prettyListPrint(transactionCtrl.getIdCtrl().getIdsAsList());
+                    } else if (list.size() == 3) {
                         // POST or PUT the name and ID
                         Id newId = new Id(list.get(1), list.get(2));
 
@@ -99,18 +92,54 @@ public class SimpleShell {
                     } else {
                         Console.println("type 'ids' for a list of all ids\n" +
                                 "type 'ids your_name your_github_id' to add or change" +
-                                "your ID");
+                                "your ID\n");
                     }
                     continue;
                 }
 
-                // messages
-                if (list.contains("messages")) {
-//                    String results = urll.get_messages();
-//                    SimpleShell.prettyPrint(results);
+                /*
+                    MESSAGES COMMAND
+                 */
+                if (list.get(0).equals("messages")) {
+                    if (list.size() == 1) {
+                        // call GET /messages and print results
+                        Console.prettyListPrint(transactionCtrl.getMsgCtrl().getMessages());
+                    } else if (list.size() == 2) {
+                        // if ID name exists, get 20 messages addressed to that ID
+                        if (transactionCtrl.getIdCtrl().idExists(new Id("", list.get(1)))) {
+                            Console.prettyListPrint(transactionCtrl.getMsgCtrl().getMessagesForId(list.get(1)));
+                        } else {
+                            Console.println("That Github ID is not registered.");
+                        }
+                    } else {
+                        Console.println("type 'messages' for a list of last 20 messages\n" +
+                                "type 'messages your_github_id' to last 20 messages addressed" +
+                                " to that Github ID\n");
+                    }
                     continue;
                 }
 
+                /*
+                    SEND COMMAND
+                */
+                if (list.get(0).equals("send")) {
+                    Message message = new Message();
+                    message.setFromId(list.get(1));
+                    // if message to be posted openly
+                    if (list.get(2).startsWith("'") && list.get(list.size() - 1).endsWith("'")) {
+                        message.setMessage(String.join(" ", list.subList(2, list.size())));
+                        Console.prettyPrint(transactionCtrl.getMsgCtrl().postMessage(message));
+                    // else if message to be posted to a specific recipient
+                    } else if (list.get(2).startsWith("'") && list.get(list.size() - 3).endsWith("'")
+                        && list.get(list.size() - 2).equals("to")) {
+                        message.setToId(list.get(list.size() - 1));
+                        message.setMessage(String.join(" ", list.subList(2, list.size() - 2)));
+                        Console.prettyPrint(transactionCtrl.getMsgCtrl().postMessage(message));
+                    } else {
+                        Console.println("type 'send your_github_id message' to send a message to all\n" +
+                                "type 'send your_github_id message to friend_github_id' to address a message to a particular user");
+                    }
+                }
 
 
 
