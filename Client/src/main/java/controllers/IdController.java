@@ -8,12 +8,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Id;
 
 public class IdController {
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public List<Id> getIdsAsList() {
-        String getResultJSON = null;
+        String getResultJSON;
         try {
             getResultJSON = ServerController.getServerInstance().getURL("ids");
-            ObjectMapper objectMapper = new ObjectMapper();
             return Arrays.asList(objectMapper.readValue(getResultJSON, Id[].class));
         } catch (IOException e) {
             e.printStackTrace();
@@ -22,24 +22,30 @@ public class IdController {
     }
 
     // create json from id
-    // call server, get json result Or error
-    // TODO server error handling
+    // call server, get json result or error
     public Id postId(Id id) throws JsonProcessingException, MalformedURLException {
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(id);
-        String responseJsonString = ServerController.getServerInstance().postURL("ids", jsonString);
-        return mapper.readValue(responseJsonString, Id.class);
+        try {
+            String jsonString = objectMapper.writeValueAsString(id);
+            String responseJsonString = ServerController.getServerInstance().postURL("ids", jsonString);
+            return objectMapper.readValue(responseJsonString, Id.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
     // create json from id
     // call server, get json result Or error
-    // TODO server error handling
     public Id putId(Id id) throws JsonProcessingException, MalformedURLException {
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(id);
-        String responseJsonString = ServerController.getServerInstance().putURL("ids", jsonString);
-        return mapper.readValue(responseJsonString, Id.class);
+        try {
+            String jsonString = objectMapper.writeValueAsString(id);
+            String responseJsonString = ServerController.getServerInstance().putURL("ids", jsonString);
+            return objectMapper.readValue(responseJsonString, Id.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public boolean idExists(Id id) {

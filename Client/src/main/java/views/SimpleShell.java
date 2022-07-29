@@ -78,6 +78,7 @@ public class SimpleShell {
                     } else if (list.size() == 3 && list.get(0).equals("ids")) {
                         // POST or PUT the name and ID
                         Id newId = new Id(list.get(1), list.get(2));
+
                         // if ID exists
                         if (transactionCtrl.getIdCtrl().idExists(newId)) {
                             String userId = transactionCtrl.getIdCtrl().getUserId(newId);
@@ -94,6 +95,7 @@ public class SimpleShell {
                             transactionCtrl.getIdCtrl().postId(newId);
                             System.out.println("ID posted successfully.");
                         }
+
                     } else {
                         Console.println("type 'ids' for a list of all ids\n" +
                                 "type 'ids your_name your_github_id' to add or change" +
