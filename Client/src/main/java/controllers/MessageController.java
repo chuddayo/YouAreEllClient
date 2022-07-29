@@ -1,29 +1,24 @@
 package controllers;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import models.Id;
 import models.Message;
 
 public class MessageController {
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private List<Message> messagesFromFriend;
     private List<Message> messagesToId;
 
     /*
         GET last 20 messages as List<Message>
-     */
+    */
     public List<Message> getMessages() {
         String getResultJSON;
         try {
             getResultJSON = ServerController.getServerInstance().getURL("messages");
-            ObjectMapper objectMapper = new ObjectMapper();
             return Arrays.asList(objectMapper.readValue(getResultJSON, Message[].class));
         } catch (IOException e) {
             e.printStackTrace();
@@ -33,14 +28,13 @@ public class MessageController {
 
     /*
         GET last 20 messages addressed to id as List<Message>
-     */
+    */
     public List<Message> getMessagesForId(String id) {
         if (messagesFromFriend == null) {
             String getResultJSON;
             try {
                 getResultJSON = ServerController.getServerInstance()
                         .getURL("ids/" + id + "/messages");
-                ObjectMapper objectMapper = new ObjectMapper();
                 return Arrays.asList(objectMapper.readValue(getResultJSON, Message[].class));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -55,7 +49,6 @@ public class MessageController {
         try {
             getResultJSON = ServerController.getServerInstance()
                     .getURL("ids/" + githubId + "/messages/" + sequence);
-            ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(getResultJSON, Message.class);
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,7 +62,6 @@ public class MessageController {
             try {
                 getResultJSON = ServerController.getServerInstance()
                         .getURL("ids/" + myId + "/from/" + friendId);
-                ObjectMapper objectMapper = new ObjectMapper();
                 return Arrays.asList(objectMapper.readValue(getResultJSON, Message[].class));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -78,13 +70,12 @@ public class MessageController {
         return messagesFromFriend;
     }
 
-    public Message postMessage(Message message) throws JsonProcessingException, MalformedURLException {
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(message);
+    public Message postMessage(Message message) throws JsonProcessingException {
+        String jsonString = objectMapper.writeValueAsString(message);
         String responseJsonString = ServerController.getServerInstance()
                 .postURL("ids/" + message.getFromId() + "/messages", jsonString);
         System.out.println(responseJsonString);
-        return mapper.readValue(responseJsonString, Message.class);
+        return objectMapper.readValue(responseJsonString, Message.class);
     }
 
     /*

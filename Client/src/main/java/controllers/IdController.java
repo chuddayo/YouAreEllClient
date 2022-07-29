@@ -23,7 +23,7 @@ public class IdController {
 
     // create json from id
     // call server, get json result or error
-    public Id postId(Id id) throws JsonProcessingException, MalformedURLException {
+    public Id postId(Id id) throws MalformedURLException, JsonProcessingException {
         try {
             String jsonString = objectMapper.writeValueAsString(id);
             String responseJsonString = ServerController.getServerInstance().postURL("ids", jsonString);
@@ -37,7 +37,7 @@ public class IdController {
 
     // create json from id
     // call server, get json result Or error
-    public Id putId(Id id) throws JsonProcessingException, MalformedURLException {
+    public Id putId(Id id) throws MalformedURLException, JsonProcessingException {
         try {
             String jsonString = objectMapper.writeValueAsString(id);
             String responseJsonString = ServerController.getServerInstance().putURL("ids", jsonString);
