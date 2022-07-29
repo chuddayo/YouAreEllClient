@@ -13,7 +13,6 @@ import models.Id;
 import models.Message;
 
 public class MessageController {
-    private List<Message> messageList;
     private List<Message> messagesFromFriend;
     private List<Message> messagesToId;
 
@@ -21,17 +20,15 @@ public class MessageController {
         GET last 20 messages as List<Message>
      */
     public List<Message> getMessages() {
-        if (messageList == null) {
-            String getResultJSON;
-            try {
-                getResultJSON = ServerController.getServerInstance().getURL("messages");
-                ObjectMapper objectMapper = new ObjectMapper();
-                return Arrays.asList(objectMapper.readValue(getResultJSON, Message[].class));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        String getResultJSON;
+        try {
+            getResultJSON = ServerController.getServerInstance().getURL("messages");
+            ObjectMapper objectMapper = new ObjectMapper();
+            return Arrays.asList(objectMapper.readValue(getResultJSON, Message[].class));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return messageList;
+        return null;
     }
 
     /*
@@ -93,14 +90,6 @@ public class MessageController {
     /*
         Getters and Setters
     */
-    public List<Message> getMessageList() {
-        return messageList;
-    }
-
-    public void setMessageList(List<Message> messageList) {
-        this.messageList = messageList;
-    }
-
     public List<Message> getMessagesFromFriend() {
         return messagesFromFriend;
     }
