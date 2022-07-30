@@ -1,5 +1,7 @@
 package controllers;
 
+import kong.unirest.HttpResponse;
+import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 import java.net.MalformedURLException;
 
@@ -15,8 +17,10 @@ public class ServerController {
     /*
         send server GET request and return body as JSON string
     */
-    public String getURL(String urlExtension) throws MalformedURLException {
-        return Unirest.get(rootURL + "/" + urlExtension).asJson().getBody().toString();
+    public String getURL(String urlExtension) {
+        HttpResponse<JsonNode> jsonResponse = Unirest.get(rootURL + "/" + urlExtension).asJson();
+        if (jsonResponse.isSuccess()) return jsonResponse.getBody().toString();
+        return null;
     }
 
     /*

@@ -35,6 +35,7 @@ public class MessageController {
             try {
                 getResultJSON = ServerController.getServerInstance()
                         .getURL("ids/" + id + "/messages");
+                if (getResultJSON == null) return null;
                 return Arrays.asList(objectMapper.readValue(getResultJSON, Message[].class));
             } catch (IOException e) {
                 e.printStackTrace();
@@ -74,7 +75,7 @@ public class MessageController {
         String jsonString = objectMapper.writeValueAsString(message);
         String responseJsonString = ServerController.getServerInstance()
                 .postURL("ids/" + message.getFromId() + "/messages", jsonString);
-        System.out.println(responseJsonString);
+        //System.out.println(responseJsonString);
         return objectMapper.readValue(responseJsonString, Message.class);
     }
 

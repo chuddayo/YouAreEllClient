@@ -107,7 +107,11 @@ public class SimpleShell {
                     } else if (list.size() == 2) {
                         // if ID name exists, get 20 messages addressed to that ID
                         if (transactionCtrl.getIdCtrl().idExists(new Id("", list.get(1)))) {
-                            Console.prettyListPrint(transactionCtrl.getMsgCtrl().getMessagesForId(list.get(1)));
+                            List<Message> messagesForId = transactionCtrl.getMsgCtrl().getMessagesForId(list.get(1));
+                            if (messagesForId == null) Console.println("No messages for you, sorry.");
+                            else {
+                                Console.prettyListPrint(messagesForId);
+                            }
                         } else {
                             Console.println("That Github ID is not registered.");
                         }
@@ -139,6 +143,7 @@ public class SimpleShell {
                         Console.println("type 'send your_github_id message' to send a message to all\n" +
                                 "type 'send your_github_id message to friend_github_id' to address a message to a particular user");
                     }
+                    continue;
                 }
 
 
