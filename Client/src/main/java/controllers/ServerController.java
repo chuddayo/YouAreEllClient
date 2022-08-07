@@ -3,7 +3,6 @@ package controllers;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
-import java.net.MalformedURLException;
 
 public class ServerController {
     private final String rootURL = "http://zipcode.rocks:8085";

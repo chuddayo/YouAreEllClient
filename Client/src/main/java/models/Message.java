@@ -1,7 +1,6 @@
 package models;
 
 import com.fasterxml.jackson.annotation.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +13,7 @@ import java.util.Map;
     "fromid": "xt0fer",
     "toid": "kristofer",
     "message": "Hello, Kristofer!"
-  },
+  }
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({

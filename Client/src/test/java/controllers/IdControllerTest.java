@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import models.Id;
 import org.junit.Assert;
 import org.junit.Test;
+import views.Console;
+
 import java.net.MalformedURLException;
 import java.util.List;
 

@@ -14,7 +14,7 @@ public class IdController {
         String getResultJSON;
         try {
             getResultJSON = ServerController.getServerInstance().getURL("ids");
-            return Arrays.asList(objectMapper.readValue(getResultJSON, Id[].class));
+            return new ArrayList<>(Arrays.asList(objectMapper.readValue(getResultJSON, Id[].class)));
         } catch (IOException e) {
             e.printStackTrace();
         }
